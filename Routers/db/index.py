@@ -1,0 +1,27 @@
+from fastapi import FastAPI
+import pymongo
+
+app= FastAPI()
+
+MONGO_HOST="localhost"
+MONGO_PUERTO="27017"
+MONGO_TIEMPO_FUERA=1000
+
+MONGO_URI="mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
+
+MONGO_BASEDATOS="actividad9"
+MONGO_COLECCION="alumnos"
+
+try:
+    cliente=pymongo.MongoClient(MONGO_URI,serverSelectionTimeoutMS=MONGO_TIEMPO_FUERA)
+    baseDatos=cliente[MONGO_BASEDATOS]
+    coleccion=baseDatos[MONGO_COLECCION] 
+    for documento in coleccion.find():
+         print(documento)
+    cliente.server_info()
+    print("Conexion a mongo exitosa")
+    cliente.close()
+except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
+        print("Tiempo exedido"+errorTiempo)
+except pymongo.errors.ConnectionFailure as errorConexion:
+   print("Fallo al conectarse a mongodb"+errorConexion)
