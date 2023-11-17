@@ -1,6 +1,6 @@
 from fastapi import FastAPI 
 #Importamos de la carpeta: "routers" el código o las clases: "routers_5" y "routers2_5"
-from routers import router1, router2, router3,  router5, router6, router7, router8, router9 #, router_DB_10
+from routers import router1, router2, router3,  router5, router6, router7, router8, router9, router_DB_10, router_DB_11
 
 from fastapi.staticfiles import StaticFiles
 
@@ -32,8 +32,8 @@ app.include_router(router9.router)
 
 
 #Creamos un router a partir de la clase router_DB_10
-#app.include_router(router_DB_10.router)
-
+app.include_router(router_DB_10.router)
+app.include_router(router_DB_11.router)
 
 #Utilizamos la (instancia) función get del framework FastAPI
 @app.get("/")
